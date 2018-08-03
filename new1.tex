@@ -1,0 +1,68 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsmath}
+% define the title
+\author{Vitesh Shah}
+\title{Dislocation Interactions and their formation of subgrains}
+\begin{document}
+% generates the title
+\maketitle
+% insert the table of contents
+\section{Equations for formation of cell/subgrain boundary} \fussy
+
+\par Nucleation of recrystallization depends on the formation and evolution of sub-grains. The process can be thought as follows: the dislocations form and start migrating across the structure. They encounter each other and get entangled, or get annihilated or form dipoles. Entanglement is the start of formation of subgrain/cell boundary. Moreover, as time proceeds the dislocations in the subgrain boundaries annihilate and re-arrange themselves, leading to a sharper LAGB. At the same time, in the case of dynamic recovery or recrystallization, the newly generated dislocations would interact with the cell/subgrain boundaries. Conversely, as the sub-grains grow the LAGB will interact with the dislocations present in the interior of the sub-grain. All these events must be taken into account in form of equations to enable the evolution of sub-grain size as a function of dislocation density. \par
+
+To account for all these processes, the dislocation densities are distinguished based on different types. 
+Here, the dislocation densities are considered as mobile and immobile dislocations. 
+Further choice needs to be made, whether further distinguishing of immobile dislocations is required or not. 
+If the only immobile dislocations are considered with no further differentiation, some fitting parameters would have to be assumed to account for subgrain/cell size and misorientations. 
+The evolution of these different fractions cannot be tracked by physical laws properly. 
+Therefore, further differentiation of immobile dislocations into immobile dislocations in the interior and walls, helps in tracking these dislocation densities with different physics based laws. 
+This can help in better quantification of subgrain/cell size and misorientations.  
+
+The Orowan equation gives the relation between the mobile dislocation densities and the shear rate and deformation gradient,
+
+\begin{equation} 
+%generates equations
+\dot{\gamma}_m^\alpha = \rho_m^\alpha b v^\alpha \label{eq:1}
+\end{equation}
+
+where \begin{math} \dot{\gamma}_m^\alpha \end{math} is the shear rate in a particular slip system, which is related to deformation gradient,\begin{math} F_p \end{math}, as \begin{math} \dot{F_p} F_p^{-1} = \sum\limits_{\alpha = 1}^N \dot{\gamma}_m^\alpha m^\alpha \bigotimes n^\alpha \end{math}
+, where \begin{math} m^\alpha \end{math} is the slip direction and \begin{math} n^\alpha \end{math} is the slip plane normal. \begin{math} b \end{math} is the burgers vector and \begin{math} v^\alpha \end{math} is the dislocation glide velocity,
+
+\begin{equation} 
+%generates equations
+v^\alpha = \lambda^\alpha v_o exp\left(\frac{-Q}{{k_B}T}\right) \label{eq:2}
+\end{equation}
+
+where \begin{math} \lambda^\alpha \end{math} is the jump width, \begin{math} v_o \end{math} is the attack frequency, \begin{math} Q \end{math} is the activation energy for dislocation glide, 
+\begin{math} V \end{math} is the activation volume (defined as  \begin{math} V_\alpha = c_2 b^2 \lambda_\alpha \end{math}), \begin{math} k_B \end{math} is the Boltzmann constant. Different models describe the
+\begin{math} \tau_eff \end{math} (frictional stress or passing stress) in different ways. 
+
+The models based on composite structure models assume fractions of different dislocation structures and average the response. This approach has been used by Roters et al. in \cite{Roters2000}, \cite{Ma2004}
+Some other authors believe that the size of the dislocation structures (in this case sub-grain and cell structures) also plays a role in determination of the friction stress \cite{Nes1997}. 
+As in this current formulation, the volume fraction of the dislocation substructures is not known, formulating the frictional stress based on the dislocation structure size seems to be a better approach.
+The cell/subgrain size would determine, how frequently a moving dislocation would encounter some resistance. In addition to this effect, the amount of dislocations in the boundary of the cell/subgrain will also determine 
+the resistance to dislocation glide. By considering all these factors together, the frictional/passing stress is considered as following,
+
+\begin{equation} 
+%generates equations
+\tau_{\text{eff}}^\alpha = \left|\tau^\alpha\right| - c_1 G b \sqrt{\rho_P^\alpha + \rho_m^\alpha} - \frac{c_2 G b}{d_s} - c_3 G b \sqrt{\rho_{\text{imm,wall}}^\alpha} \label{eq:3}
+\end{equation}
+
+The third and fourth term in equation \eqref{eq:3} are considered to account for the stress fields of the dislocations present in the cell-walls/subgrain boundaries. 
+Smaller cell sizes would lead to mobile dislocations encountering the dense dislocation networks in the cell boundaries more frequently. 
+Moreover, the amount of dislocations in the boundary would also contribute to the resistance to the glide of mobile dislocations. Denser dislocation walls will provide higher resistance to dislocation glide
+Therefore, the fourth term has been included in the equation. 
+This addition of fourth term can help in accounting for effect of reduction or saturation of flow stress due to sharpening of cell/subgrain boundaries, where the growth of cell/sub-grain could be negligible. 
+
+In the initial time step, the dislocations are generated on a particular slip plane and start to glide along it. 
+They encounter the forest dislocations and get locked on interaction. 
+This interaction is the first step towards formation of a cell boundary. 
+Therefore, it can be assumed that the dislocation mean free path on that particular slip plane would determine the radius of the dislocation cell/sub-grain. 
+It is further assumed that no other types of dislocations (e.g. Immobile dislocations) are present at the first time step. 
+The mean free path is dependent on the forest dislocation density. The parallel and forest dislocations on a particular slip plane can be described as in \cite{Roters2011}
+\ldots{} and here it ends.
+\bibliographystyle{ieeetran}
+%can use bibliographystyle{plain} for the most basic things but it doesnt order the citations properly
+\bibliography{library}
+\end{document}
