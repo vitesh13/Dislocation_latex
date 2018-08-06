@@ -49,11 +49,17 @@ the resistance to dislocation glide. By considering all these factors together, 
 \tau_{\text{eff}}^\alpha = \left|\tau^\alpha\right| - c_1 G b \sqrt{\rho_P^\alpha + \rho_m^\alpha} - \frac{c_2 G b}{d_s} - c_3 G b \sqrt{\rho_{\text{imm,wall}}^\alpha} \label{eq:3}
 \end{equation}
 
-The third and fourth term in equation \eqref{eq:3} are considered to account for the stress fields of the dislocations present in the cell-walls/subgrain boundaries. 
-Smaller cell sizes would lead to mobile dislocations encountering the dense dislocation networks in the cell boundaries more frequently. 
-Moreover, the amount of dislocations in the boundary would also contribute to the resistance to the glide of mobile dislocations. Denser dislocation walls will provide higher resistance to dislocation glide
+In the equation above, the second term relates to the resistance offered by the other dislocations in the path of a mobile dislocations. 
+The third and fourth term in the equation \eqref{eq:3} are considered to account for the stress fields of the dislocations present in the cell-walls/subgrain boundaries.
+Smaller cell sizes would lead to the cases where the mobile dislocations encounter the dense dislocation networks in the cell boundaries more frequently. 
+Moreover, the amount of dislocations in the boundary would also contribute to the resistance to the glide of mobile dislocations. 
 Therefore, the fourth term has been included in the equation. 
 This addition of fourth term can help in accounting for effect of reduction or saturation of flow stress due to sharpening of cell/subgrain boundaries, where the growth of cell/sub-grain could be negligible. 
+The constants \begin{math} c_1,c_2,c_3 \end{math} have to be currently considered as fitting parameters. 
+It can be imagined that \begin{math} c_2 \end{math} would be some function of misorientation of the boundary. 
+Sub-grain boundaries with higher misorientations would mean that the mobile dislocation would have to change the slip system a little bit (for sub grain boundaries), which would require extra energy.  
+The dislocations in the walls are much more densely packed, which would result in higher resistance to gliding dislocations, for the same order of dislocation densities. 
+Therefore, the constant 
 
 In the initial time step, the dislocations are generated on a particular slip plane and start to glide along it. 
 They encounter the forest dislocations and get locked on interaction. 
@@ -61,6 +67,62 @@ This interaction is the first step towards formation of a cell boundary.
 Therefore, it can be assumed that the dislocation mean free path on that particular slip plane would determine the radius of the dislocation cell/sub-grain. 
 It is further assumed that no other types of dislocations (e.g. Immobile dislocations) are present at the first time step. 
 The mean free path is dependent on the forest dislocation density. The parallel and forest dislocations on a particular slip plane can be described as in \cite{Roters2011}
+
+\begin{subequations}
+\begin{equation}
+\rho_F^\alpha = \sum\limits_{\beta = 1}^{N_\text{slip}} \chi^{\alpha\beta} \rho_\text{SSD}^\beta \left|cos \left( n^\alpha , t^\beta \right) \right|  \label{eq:4.1} \\
+\end{equation}
+\begin{equation}
+\rho_P^\alpha = \sum\limits_{\beta = 1}^{N_\text{slip}} \chi^{\alpha\beta} \rho_\text{SSD}^\beta \left|sin \left( n^\alpha , t^\beta \right) \right|  \label{eq:4.2} \\
+\end{equation}
+\end{subequations}
+
+where \begin{math} \chi^{\alpha\beta} \end{math} is the interaction strength between the different slip systems, \begin{math} n^\alpha \end{math} is the slip plane normal and \begin{math} t^\beta \end{math} 
+is the line direction in a particular slip system. 
+
+To account for the effects from the other dislocation types, the mean free path is described as,
+
+\begin{equation}
+\frac{1}{\Lambda_s^\alpha} = K_1 \sqrt{\rho_F^\alpha} + K_2 \sqrt{\rho_{\text{wall,immobile}}^\alpha} + \frac{1}{D} + \frac{K_3}{d_s} \label{eq:5}
+\end{equation}
+
+where \begin{math} K_1,K_2,K_3 \end{math} are the proportionality constants. 
+These constants relate the effect of these particular entities alone on the overall dislocation mean free path. 
+Based on the mean free path of the dislocations, the possible initial size of the dislocations cells/sub-grains can be calculated, by assuming ,
+
+\begin{equation}
+d_s = 2r_s = 2\Lambda_s \label{eq:6}
+\end{equation}
+
+This gives the initial cell/sub-grain size at the first time step. 
+For later stage of subgrain growth, the grain growth rate equations should be used for calculations. 
+The use of equation \eqref{eq:6} would lead to a very large sub grain size initially (due to low dislocation density). 
+But, the further evolution of the subgrain size would depend on the grain size evolution equation dependent on the shrinkage and growth terms.
+Mostly, in the initial stages of deformation, the increase in the immobile dislocations is quite rapid \cite{Roters2000}.
+Therefore, in the initial stages of the deformation, the sub-grain shrinkage would dominate leading to smaller sub-grains eventually. 
+
+The mobile dislocations in the interior of the dislocation cell/subgrain can get reduced when they interact with the forest dislocations and form a lock leading to immobile dislocations. 
+The rate of reduction of mobile dislocations in this manner, can be considered as a process, where a mobile dislocation encounters a forest dislocation as it moves in a particular time step. 
+This gives following expression, motivated from the work of Ma and Roters et al. \cite{Ma2004}
+
+\begin{equation}
+\dot\rho_{\text{m,lock}}^{\alpha-} = \frac{c_4\left|\dot\gamma^\alpha\right|\sqrt{\rho_F^\alpha}}{b} \label{eq:7}
+\end{equation}
+
+The increase in the mobile dislocation density can be described as shown in \cite{Roters2017}
+
+\begin{equation}
+\dot\rho_{\text{m}}^{\alpha+} = \frac{\left|\dot\gamma^\alpha\right|}{b\Lambda_s^\alpha} \label{eq:8}
+\end{equation}
+
+The other source of reduction of the mobile dislocations is the interaction of these dislocations with the dislocations having opposite signs and within the distance of annihilation. 
+This can be calculated based on the approach described by Roters et al. \cite{Roters2000}, leading to equation,
+
+\begin{equation}
+\dot\rho_{\text{m,annihilate}}^{\alpha-} = 2\check{d} v_\alpha \rho_m^\alpha = \frac{2\check{d}\left|\dot\gamma^\alpha\right|}{b} \label{eq:9}
+\end{equation}
+
+
 \ldots{} and here it ends.
 \bibliographystyle{ieeetran}
 %can use bibliographystyle{plain} for the most basic things but it doesnt order the citations properly
