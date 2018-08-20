@@ -67,7 +67,7 @@ This interaction is the first step towards formation of a cell boundary.
 Therefore, it can be assumed that the dislocation mean free path on that particular slip plane would determine the radius of the dislocation cell/sub-grain. 
 It is further assumed that no other types of dislocations (e.g. Immobile dislocations) are present at the first time step. 
 The mean free path is dependent on the forest dislocation density. The parallel and forest dislocations on a particular slip plane can be described as in \cite{Roters2011}
-
+%
 \begin{subequations}
 \begin{equation}
 \rho_F^\alpha = \sum\limits_{\beta = 1}^{N_\text{slip}} \chi^{\alpha\beta} \rho_\text{SSD}^\beta \left|cos \left( n^\alpha , t^\beta \right) \right|  \label{eq:4.1} \\
@@ -76,24 +76,24 @@ The mean free path is dependent on the forest dislocation density. The parallel 
 \rho_P^\alpha = \sum\limits_{\beta = 1}^{N_\text{slip}} \chi^{\alpha\beta} \rho_\text{SSD}^\beta \left|sin \left( n^\alpha , t^\beta \right) \right|  \label{eq:4.2} \\
 \end{equation}
 \end{subequations}
-
+%
 where \begin{math} \chi^{\alpha\beta} \end{math} is the interaction strength between the different slip systems, \begin{math} n^\alpha \end{math} is the slip plane normal and \begin{math} t^\beta \end{math} 
 is the line direction in a particular slip system. 
 
 To account for the effects from the other dislocation types, the mean free path is described as,
-
+%
 \begin{equation}
 \frac{1}{\Lambda_s^\alpha} = K_1 \sqrt{\rho_F^\alpha} + K_2 \sqrt{\rho_{\text{wall,immobile}}^\alpha} + \frac{1}{D} + \frac{K_3}{d_s} \label{eq:5}
 \end{equation}
-
+%
 where \begin{math} K_1,K_2,K_3 \end{math} are the proportionality constants. 
 These constants relate the effect of these particular entities alone on the overall dislocation mean free path. 
-Based on the mean free path of the dislocations, the possible initial size of the dislocations cells/sub-grains can be calculated, by assuming ,
-
+Based on the mean free path of the dislocations, the possible initial size of the dislocations cells/sub-grains can be calculated, by assuming,
+%
 \begin{equation}
 d_s = 2r_s = 2\Lambda_s \label{eq:6}
 \end{equation}
-
+%
 This gives the initial cell/sub-grain size at the first time step. 
 For later stage of subgrain growth, the grain growth rate equations should be used for calculations. 
 The use of equation \eqref{eq:6} would lead to a very large sub grain size initially (due to low dislocation density). 
