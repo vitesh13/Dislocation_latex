@@ -59,7 +59,7 @@ The constants \begin{math} c_1,c_2,c_3 \end{math} have to be currently considere
 It can be imagined that \begin{math} c_2 \end{math} would be some function of misorientation of the boundary. 
 Sub-grain boundaries with higher misorientations would mean that the mobile dislocation would have to change the slip system a little bit (for sub grain boundaries), which would require extra energy.  
 The dislocations in the walls are much more densely packed, which would result in higher resistance to gliding dislocations, for the same order of dislocation densities. 
-Therefore, the constant 
+Therefore, the constant \begin{math} c_3 > c_1 \end{math}
 
 In the initial time step, the dislocations are generated on a particular slip plane and start to glide along it. 
 They encounter the forest dislocations and get locked on interaction. 
@@ -121,9 +121,215 @@ This can be calculated based on the approach described by Roters et al. \cite{Ro
 \begin{equation}
 \dot\rho_{\text{m,annihilate}}^{\alpha-} = 2\check{d} v_\alpha \rho_m^\alpha = \frac{2\check{d}\left|\dot\gamma^\alpha\right|}{b} \label{eq:9}
 \end{equation}
+%
+where, \begin{math} \check{d} \end{math} is the distance from the dislocation upto which the annihilation can happen. This can be treated as a fitting parameter or a constant as done by Roters et al. in
+\cite{Roters2000} and \cite{Roters2017} respectively. As the approach, mentioned by Roters et al. \cite{Roters2000} is followed, it is assumed that there is an equal density of positive and negative dislocations of all types.   
+
+In a similar way, the reduction of mobile dislocation density due to dipole formation can be taken into account. 
+Here, the dipole formation due to mobile dislocations in the cell interior and the immobile dislocations in the cell interiors are considered.
+
+\begin{equation}
+\dot\rho_{\text{m,dipole}}^{\alpha-} = \frac{2\left(\hat{d} - \check{d}\right)}{b} \left|\dot\gamma^\alpha\right| \rho_{\text{m}}^\alpha + \frac{\left(\hat{d} - \check{d}\right)}{b} \left|\dot\gamma^\alpha\right| \rho_{\text{imm,cell}}^\alpha \label{eq:10}
+\end{equation}
+%
+The mobile dislocations might also interact with the migrating cell/subgrain boundaries. 
+It is assumed that the interacting dislocations would settle in the boundaries by locking with the other dislocations present in the boundary. 
+This rate of reduction of dislocation densities would be dependent on the relative velocities of mobile dislocations and the LAGB. 
+But, this model doesn’t take the signed dislocation densities into account and thus, finding relative velocities is difficult. 
+To circumvent this problem, it is assumed that the dislocations of positive and negative signs are equally distributed. 
+This introduces factor of \begin{math} \frac{1}{2} \end{math}.
+The difference in the velocities of the mobile dislocations and boundary would ensure that some dislocations (which glide in direction opposite to the boundary) would settle in the boundary. 
+Not all the interacting dislocations would get caught up in the boundary. 
+The ability of the boundary to lock the interacting dislocation would depend on the dislocation density in the boundary. 
+Thus, a factor which quantifies this effect is multiplied at the end. 
+This can be described by the expression,
+
+% 
+\begin{equation}
+\dot\rho_{\text{m,LAGB}}^{\alpha-} = \frac{1}{2} \pi d_s \left|\overrightarrow{v}_\text{LAGB} - \overrightarrow{v}_\alpha \right| \times \rho_m^\alpha \times \frac{\rho_{\text{imm,wall}}^\alpha}{\rho_{\text{total}}} \label{eq:11}
+\end{equation}
+%
+The method to calculate the velocity of the sub-grain/cell boundary is mentioned later. 
+In the equation above, \begin{math} \rho_{\text{total}}^\alpha \end{math} is the sum of all different dislocations in a slip system being considered in this model. 
+
+%
+The increase in the number of immobile dislocations inside the cells is due to immobilization of the mobile dislocations when they interact with the forest dislocations in the cell interiors. 
+Thus, it can be correlated to the lock formation rate inside the cell interiors.
+
+%
+\begin{equation}
+\dot\rho_{\text{imm,cell}}^{\alpha+} = \dot\rho_{\text{m,lock}}^{\alpha-} = \frac{c_4 \left|\dot\gamma^\alpha\right| \sqrt{\rho_F^\alpha}}{b} \label{eq:12}
+\end{equation}
+
+%
+The immobile dislocations can form dipoles with the mobile dislocations, if the distance between these two types of dislocations is enough to form a dipole 
+This approach has been described in \cite{Roters2011}
+
+\begin{subequations}
+\begin{equation}
+\dot\rho_{\text{imm,cell,dipole}}^{\alpha-} = \frac{\hat{d} - \check{d}}{b} \left|\dot\gamma^\alpha\right| \rho_{\text{imm,cell}}^{\alpha} \label{eq:13}
+\end{equation}
+
+\begin{equation}
+\dot\rho_{\text{imm,cell,annihilate}}^{\alpha-} = \left(\check{d} v_\alpha \rho_{\text{imm,cell}}^\alpha \right) \rho_m^\alpha = \frac{\check{d} \dot\gamma^\alpha \rho_{\text{imm,cell}}^\alpha}{b} \label{eq:13_1}
+\end{equation}
+\end{subequations}
+%
+When the cell/subgrain boundaries (LAGB) migrate, they might interact with the immobile dislocations in the cell interiors and absorb them. 
+This would increase the dislocation density inside the LAGB, but reduce the immobile dislocation density in the interior of the cells. 
+This can be described in the same way as done in case of equation \eqref{eq:11}
+the only difference would be that the velocity of the dislocations will not be taken into account,
+%
+\begin{equation}
+\dot\rho_{\text{imm,cell,LABG}}^{\alpha-} = \pi d_s \left| v_{\text{LABG}} \right| \times \rho_{\text{imm,cell}}^{\alpha} \times \frac{\rho_{\text{imm,wall}}^{\alpha}}{\rho_{\text{total}}^{\alpha}} \label{eq:14}
+\end{equation}
+%
+The other process to reduce the immobile dislocation density is through the climb process of the dislocations. 
+The rate equation for this process is given by \cite{Roters2000} ,
+
+\begin{equation}
+\dot\rho_{\text{imm,cell,climb}}^{\alpha-} = 2 v_\text{climb} \check{d} {\left(\rho_{\text{imm}}^{\alpha}\right)}^2 \label{eq:15}
+\end{equation}
+
+%
+where the climb velocity is defined as, 
+\begin{math} v_\text{climb} = A' c_j {\left( \frac{\gamma_\text{SFE}}{Gb} \right)}^{2} \frac{D_\text{SD}}{b} \frac{\Omega \sigma_c }{k_B T}\end{math}
+as defined in \cite{Eisenlohr2004} and \cite{Argon1981}. 
+The calculation of \begin{math} D_{\text{SD}} \end{math} can be considered a little differently. 
+Generally, the activation energy for self-diffusion is only considered for lattice self-diffusion. 
+But, according to Turunen and Lindroos \cite{Turunen1974} the pipe diffusion of vacancies can also be a contributing factor. 
+Therefore, the activation energy can be assumed as \begin{math} E = \frac{E_{\text{SD,lattice}} + E_{\text{SD,pipe}}}{2} \end{math}.
+This debate has also been highlighted by experimental data of recovery kinetics of Gottstein \cite{Lu2011} . 
+The term \begin{math} \sigma_c \end{math} also needs to be defined carefully for non-dipole configurations. 
+\begin{math} \sigma_c \end{math} is generally the sum of dislocation self-stresses and the external stresses. 
+Here, the external stresses are neglected and only the dislocation self-stresses are considered. 
+Therefore, the \begin{math} \sigma_c = \frac{Gb \sqrt{\rho_{\text{imm}}^\alpha}}{2 \pi \left( 1 - \nu \right)} \end{math} , derivation of which is shown in the appendix A. 
+% 
 
 
-\ldots{} and here it ends.
+The immobile dislocations in the interior of the cells can lead to formation of new cell boundaries as envisioned by Nes \cite{Nes1997}.
+Following a similar approach, it is assumed that a fraction (\begin{math} f \end{math}) of leftover immobile dislocations 
+\begin{math} f \left(\dot\rho_{\text{imm,cell}}^{\alpha+} - \dot\rho_{\text{imm,cell}}^{\alpha-} \right) = f \dot\rho_{\text{imm,cell,total}}^{\alpha}\end{math} will form the new cell boundaries. 
+Therefore, it is assumed that the cell/subgrain size during deformation is inversely proportional to the leftover immobile dislocation density. 
+This can also help in explaining the saturation of sub-grain sizes at higher strains and temperatures as observed by Nes \cite{Nes1997}.
+%
+The other contributing factor to reduction in dislocation densities is from cross slip, which is common for screw dislocations in FCC metals. 
+This mechanism is being considered for reduction of immobile dislocations in the cell interiors and the cell walls. 
+It can be assumed that half of the total dislocations are screw dislocations. 
+Based on the activation energy for the cross slip based on Friedel Escaig mechanism \cite{Puschl2002}, the probability of cross slip can be used to estimate the annihilation due to cross slip,
+
+\begin{equation}
+\dot\rho_{\text{imm,cell,cross}}^{\alpha-} = c_5 \omega b^2 exp\left( - \frac{E_{\text{CS}}}{K_B T} \right) \frac{\rho_{\text{imm,cell}}^2}{4} \label{eq:16}
+\end{equation}
+
+where \begin{math} c_5 \end{math} is a proportionality constant, \begin{math} \omega \end{math} is the vibration frequency of atoms, \begin{math} E_{\text{CS}} \end{math} is the activation energy of the cross slip, 
+which is dependent on the stacking fault energy and the shear stress on the slip system \cite{Puschl2002}. 
+It is assumed that a screw dislocation can slip in the activation area surrounding it. 
+When this slipping dislocation encounters another screw dislocation with opposite sign, it will get annihilated. 
+
+The dislocation dipoles also have their separate rate equations. 
+The dipole formation rate equations have already been derived in the earlier equations. 
+It is assumed that all the dipoles being formed end up in the cell/subgrain walls, as done by Roters \cite{Roters2000}. 
+The equations describing the reduction in the dipole dislocation density will be discussed further. 
+The reduction in the dipole dislocation density is due to two processes – dipole dissociation annihilation due to thermal effects and dipole dissociation though stress increase.
+
+
+The increase in the resolved shear stress due to hardening leads to reduction of the distance below which the two dislocations would remain in a stable dipole configuration. 
+This contributes to the reduction in the dipole dislocation density and leads to creation of mobile dislocations again. 
+For these changes in the dipole density, only the dipoles in the cell interiors are considered. 
+It is assumed that the dipoles in the cell walls would get affected only through the thermal effects.
+
+\begin{equation}
+\dot\rho_{\text{mob}}^{\alpha-} = \dot\rho_{\text{dipole,cell}}^{\alpha-} = \rho_{\text{cell,dipole}}^{\alpha} \frac{1}{\hat{d} - \check{d}} \frac{d\hat{d}}{dt} \label{eq:17}
+\end{equation} 
+
+The thermal annihilation occurs due to climb of dislocations leading to dissociation of the dipoles. 
+
+\begin{equation}
+\dot\rho_{\text{dipole,cell}}^{\alpha-} = \rho_{\text{cell,dipole}}^{\alpha} \frac{4 v_{\text{climb}}}{\hat{d} - \check{d}} \label{eq:18}
+\end{equation} 
+
+The dislocations in the cell walls would be considered now. 
+It is assumed that all the dislocations in the cell walls are immobile due to intense entanglement and the only possible movement is through climb or cross-slip. 
+The dislocations in cell walls can undergo following processes: annihilation with dislocation of an opposite value through process of climb or cross-slip, 
+increase through absorption of dislocation dipoles and other mobile and immobile dipoles when the GB moves. 
+The leftover immobile dislocations inside the cells are assumed to contribute to formation of new LAGBs, through formation of new boundaries. 
+Therefore, the increase in dislocation density in the walls should also account for these immobile cell interior dislocations.
+
+
+The increase in the dislocation density through absorption of different dislocation densities can be described as,
+\begin{equation}
+\dot\rho_{\text{imm,wall}}^{\alpha+} = \dot\rho_{\text{m,LABG}}^{\alpha-} + \dot\rho_{\text{imm,cell,LABG}}^{\alpha-} + \dot\rho_{\text{dipole}}^{\alpha+} + f \dot\rho_{\text{imm,cell,total}}^{\alpha} \label{eq:19}
+\end{equation} 
+
+where \begin{math} \dot\rho_{\text{imm,cell,total}}^{\alpha} \end{math} is the rate of formation of leftover immobile dislocation densities.
+It can be described as the difference between the dislocation formation part and dislocation reduction part. 
+
+The reduction in the dislocation density in the cell walls can be described through a climb process as described in \cite{Roters2000},
+
+\begin{subequations}
+\begin{equation}
+\dot\rho_{\text{imm,wall,climb}}^{\alpha-} = 2v_{\text{climb,wall}} \check{d} \left(\rho_{\text{imm,wall}}^{\alpha}\right)^2 \label{eq:20_1}
+\end{equation}
+
+\begin{equation}
+\dot\rho_{\text{imm,wall,cross}}^{\alpha-} = c_6 b^2 exp\left( - \frac{E_{\text{CS}}}{K_B T} \right) \frac{\rho_{\text{imm,wall,lock}}^2}{4} \label{eq:20_2}
+\end{equation}
+\end{subequations}
+
+It is assumed here, that the flow stress in the walls and interior is the same, which leads to a similar value of \begin{math} E_{\text{CS}} \end{math} for cross slip in both locations. 
+
+
+All these equations together give the total dislocation density evolution for a cell/sub-grain structures. 
+The evolution rate for the dislocation densities can help in getting the sub-grain growth equations. 
+The excess immobile dislocations in the interiors of the sub-grains contribute to reduction of subgrain sizes. 
+Therefore, rate of reduction of the sub-grain size can be described by assuming that the sub-grain size is inversely proportional to left over immobile dislocations. 
+This leads to time based sub-grain size reduction rate equation as,
+
+\begin{equation}
+\dot{d}_s^- = - \frac{1}{2} K_c \rho_{\text{imm,total}}^{-\frac{3}{2}} {\dot{\rho}}_{\text{imm,cell,total}} \label{eq:21}
+\end{equation}
+
+The growth of the sub-grains/cells can be described by a simple grain growth theory. 
+The velocity of the sub-grain boundary can be described as \begin{math} v = MF \end{math}, where M is the temperature dependent mobility and F is the driving force. 
+It is assumed that the pre-exponential factor in the description of the mobility is constant. 
+With deformation, the dislocation density in the cell/subgrain boundaries changes, which, in turn changes the energy of the boundary.
+
+The energy of low angle sub-grain boundaries depends on the misorientation through the Read-Shockley equation \cite{Read1950}, 
+
+\begin{equation}
+E = \gamma_o \theta [A - ln \theta] \label{eq:22}
+\end{equation}
+
+where \begin{math} E \end{math} is the low angle grain boundary energy, \begin{math} \theta \end{math} is the misorientation of the low angle grain boundary,
+\begin{math} \gamma_o = \frac{Gb}{4\pi \left( 1 - \nu \right)} \end{math} and \begin{math} A = 1 + ln \frac{b}{2 \pi r_o} \end{math}
+
+The misorientation is based on the GND density. 
+In this model, it is assumed that the dislocations other than the dipole dislocations in the walls, would contribute to misorientations in the cell/subgrain boundaries. 
+The GND density  can be approximated as: 
+\begin{math} \rho_{\text{GND}} = \rho_{\text{imm,wall}} - \rho_{\text{imm,wall,dipoles}} \end{math}
+
+\begin{equation}
+\theta = \frac{\rho_{\text{GND}} ub}{2}  \label{eq:23}
+\end{equation}
+
+where, \begin{math} u \end{math} is the unit length. 
+Based on this, the rate of increase of the cell/subgrain size can be described as,
+
+\begin{equation}
+{\dot{d}}_s^+ = M\left(\frac{2E}{R}\right)  \label{eq:24}
+\end{equation}
+
+Therefore, the total change in the size of sub-grain would be,
+
+\begin{equation}
+{\dot{d}} = {\dot{d}}_s^- + {\dot{d}}_s^+  \label{eq:24}
+\end{equation}
+
+The sub-grain size would affect the mean free path and the passing stress for the dislocations through the equations \eqref{eq:3} and \eqref{eq:5}. 
+This would change the dislocation density evolution, leading to interdependence between the sub-grain sizes and dislocation density evolution.
+
+
 \bibliographystyle{ieeetran}
 %can use bibliographystyle{plain} for the most basic things but it doesnt order the citations properly
 \bibliography{library}
